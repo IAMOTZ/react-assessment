@@ -7,6 +7,11 @@ export interface User {
 
 export interface UsersState {
   users: User[],
+  paginationInfo: {
+    limit: number,
+    offset: number,
+    total: number,
+  },
   isFetchingUsers: boolean,
   fetchingUsersSuccess: boolean,
   fetchingUsersError: null | string,

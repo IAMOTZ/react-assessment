@@ -25,7 +25,7 @@ export interface EditUserResponse {
 }
 
 export interface EditUserPayload {
-  userId: number,
+  id: number,
   first_name?: string;
   last_name?: string;
   email?: string;
@@ -33,8 +33,4 @@ export interface EditUserPayload {
 
 export interface DeleteUserResponse {
   message: string,
-}
-
-export interface DeleteUserPayload {
-  userId: number,
 }

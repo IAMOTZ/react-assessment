@@ -5,6 +5,11 @@ import { UsersState } from './typings';
 
 const initialState: UsersState = {
   users: [],
+  paginationInfo: {
+    limit: 20,
+    offset: 0,
+    total: 0,
+  },
   isFetchingUsers: false,
   fetchingUsersSuccess: false,
   fetchingUsersError: null,
@@ -22,7 +27,12 @@ const initialState: UsersState = {
 export const usersSlice = createSlice({
   name: 'users',
   initialState,
-  reducers: {},
+  reducers: {
+    setPaginationInfo: (state, action) => {
+      state.paginationInfo.limit = action.payload.limit ?? state.paginationInfo.limit;
+      state.paginationInfo.offset = action.payload.offset ?? state.paginationInfo.offset;
+    }
+  },
 
   extraReducers: (builder) => {
     builder
@@ -35,7 +45,8 @@ export const usersSlice = createSlice({
         state.isFetchingUsers = false;
         state.fetchingUsersSuccess = true;
         state.fetchingUsersError = null;
-        state.users = action.payload || [];
+        state.users = action.payload?.users || [];
+        state.paginationInfo = action.payload?.paginationInfo || initialState.paginationInfo;
       })
       .addCase(fetchUsers.rejected, (state, action) => {
         state.isFetchingUsers = false;
@@ -78,3 +89,7 @@ export const usersSlice = createSlice({
 });
 
 export default usersSlice.reducer;
+
+// @todo: Kep this as part of actions exports
+export const { setPaginationInfo } = usersSlice.actions;
+
