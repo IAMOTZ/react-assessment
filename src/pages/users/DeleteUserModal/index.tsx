@@ -2,9 +2,14 @@ import React from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from '../../../components/Modal';
 import { deleteUser } from '../../../store/users/actions';
+import { User } from '../../../store/users/typings';
 
+export interface DeleteUserModalProps {
+  closeModal: () => void;
+  userToDelete: User
+}
 
-const DeleteUserModal = ({ closeModal, userToDelete }) => {
+const DeleteUserModal = ({ closeModal, userToDelete }: DeleteUserModalProps) => {
   const dispatch = useDispatch();
 
   const confirmUserDelete = () => {

@@ -1,6 +1,12 @@
 import React, { useEffect, useState } from 'react';
 
-const Pagination = ({ pageSize, totalDataCount, onPageChange }) => {
+interface PaginationProps {
+  pageSize: number,
+  totalDataCount: number,
+  onPageChange: (page: number) => void,
+}
+
+const Pagination = ({ pageSize, totalDataCount, onPageChange }: PaginationProps) => {
   const [page, setPage] = useState(0);
 
   useEffect(() => {

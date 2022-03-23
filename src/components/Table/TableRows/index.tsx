@@ -1,6 +1,7 @@
 import React from 'react';
+import { TableColumn } from '../typings';
 
-const TableRow = ({ columns, row }) => {
+const TableRow = ({ columns, row }: { columns: TableColumn[], row: any }) => {
   return <div className='table-row'>
     {
       columns.map((column, i) => {
@@ -11,7 +12,7 @@ const TableRow = ({ columns, row }) => {
   </div>
 }
 
-const TableRows = ({ columns, rows }) => {
+const TableRows = ({ columns, rows }: { columns: TableColumn[], rows: any[] }) => {
   return (<div className='table-rows'>
     {
       rows.map((row, i) => <TableRow columns={columns} row={row} key={row.id || i}/>)

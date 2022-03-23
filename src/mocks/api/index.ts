@@ -1,7 +1,7 @@
 import { rest, setupWorker } from 'msw';
 import data from './data.json';
 
-const getUsers = (req, res, ctx) => {
+const getUsersHandler = rest.get('/users', (req, res, ctx) => {
   const limit = Number(req.url.searchParams?.get('limit')) || 20;
   const offset = Number(req.url.searchParams?.get('offset')) || 0;
 
@@ -19,9 +19,15 @@ const getUsers = (req, res, ctx) => {
       }
     })
   )
-};
+});
 
-const updateUser = (req, res, ctx) => {
+interface EditUserBody {
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+}
+
+const editUserHandler = rest.put<EditUserBody>('/users/:userId', (req, res, ctx) => {
   const userId = +req.params.userId;
   const user = data.find(usr => usr.id === userId);
 
@@ -44,9 +50,9 @@ const updateUser = (req, res, ctx) => {
       message: 'User updated successfully',
     })
   )
-}
+});
 
-const deleteUser = (req, res, ctx) => {
+const deleteUserHandler = rest.delete('/users/:userId', (req, res, ctx) => {
   const userId = +req.params.userId;
 
   const userIndex = data.findIndex(usr => usr.id === userId);
@@ -68,14 +74,13 @@ const deleteUser = (req, res, ctx) => {
       message: 'User deleted successfully',
     })
   )
-}
-
+});
 
 export const setupApiMocking = () => {
   const worker = setupWorker(
-    rest.get('/users', getUsers),
-    rest.put('/users/:userId', updateUser),
-    rest.delete('/users/:userId', deleteUser),
+    getUsersHandler,
+    editUserHandler,
+    deleteUserHandler,
   )
   worker.start();
 }

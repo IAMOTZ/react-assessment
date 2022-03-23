@@ -6,26 +6,28 @@ import Table from '../../components/Table';
 import EditUserModal from './EditUserModal';
 import DeleteUserModal from './DeleteUserModal';
 import Pagination from '../../components/Pagination';
+import { User } from '../../store/users/typings';
+import { RootState } from '../../store';
 
 const Users = () => {
-  const users = useSelector((state) => state.users.users)
-  const isFetchingUsers = useSelector((state) => state.users.isFetchingUsers)
-  const fetchingUsersError = useSelector((state) => state.users.fetchingUsersError)
-  const paginationInfo = useSelector((state) => state.users.paginationInfo)
+  const { users, paginationInfo } = useSelector((state: RootState) => ({
+    users: state.users.users,
+    paginationInfo: state.users.paginationInfo,
+  }));
 
   const [editModalOpen, setEditModalOpen] = useState(false);
   const [deleteModalOpen, setDeleteModalOpen] = useState(false)
 
-  const [userToEdit, setUserToEdit] = useState(null);
-  const [userToDelete, setUserToDelete] = useState(null);
+  const [userToEdit, setUserToEdit] = useState<User | null>(null);
+  const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
 
-  const startEditAction = (user) => {
+  const startEditAction = (user: User) => {
     setEditModalOpen(true);
     setUserToEdit(user);
   }
 
-  const startDeleteAction = (user) => {
+  const startDeleteAction = (user: User) => {
     setDeleteModalOpen(true);
     setUserToDelete(user);
   }
@@ -36,8 +38,9 @@ const Users = () => {
     { field: 'last_name', headerName: 'Last Name' },
     { field: 'email', headerName: 'Email' },
     {
+      field: '',
       headerName: 'Actions',
-      valueGetter: (row) => (
+      valueGetter: (row: User) => (
         <>
           <button onClick={() => startDeleteAction(row)}>Delete User</button>
           <button onClick={() => startEditAction(row)}>Edit User</button>
@@ -67,8 +70,8 @@ const Users = () => {
 
   return (
     <>
-      {editModalOpen && <EditUserModal closeModal={() => setEditModalOpen(false)} userToEdit={userToEdit} />}
-      {deleteModalOpen && <DeleteUserModal closeModal={() => setDeleteModalOpen(false)} userToDelete={userToDelete} />}
+      {editModalOpen && <EditUserModal closeModal={() => setEditModalOpen(false)} userToEdit={userToEdit as User} />}
+      {deleteModalOpen && <DeleteUserModal closeModal={() => setDeleteModalOpen(false)} userToDelete={userToDelete as User} />}
       <Table columns={columns} rows={users} />
       <Pagination onPageChange={onPageChange} totalDataCount={total} pageSize={pageSize} />
     </>

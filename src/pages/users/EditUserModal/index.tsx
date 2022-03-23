@@ -2,17 +2,30 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Modal from '../../../components/Modal';
 import { editUser } from '../../../store/users/actions';
+import { User } from '../../../store/users/typings';
 
-const EditUserModal = ({ closeModal, userToEdit }) => {
+export interface EditUserModalProps {
+  closeModal: () => void;
+  userToEdit: User;
+}
+
+interface ValidationResult {
+  firstNameError?: string | null;
+  lastNameError?: string | null;
+  emailError?: string | null
+}
+
+
+const EditUserModal = ({ closeModal, userToEdit }: EditUserModalProps) => {
   const [firstName, setFirstName] = useState(userToEdit.first_name);
   const [lastName, setLastName] = useState(userToEdit.last_name);
   const [email, setEmail] = useState(userToEdit.email);
 
-  const [validationResult, setValidationResult] = useState({ firstNamError: null, lastNameError: null, emailError: null });
+  const [validationResult, setValidationResult] = useState<ValidationResult>({ firstNameError: null, lastNameError: null, emailError: null });
 
   const validateInputs = () => {
-    const errors = {};
-    if (!firstName) errors.firstNamError = 'First name is required';
+    const errors: ValidationResult = {};
+    if (!firstName) errors.firstNameError = 'First name is required';
     if (!lastName) errors.lastNameError = 'Last name is required';
     // @todo-improvement: Validate email format
     if (!email) errors.emailError = 'Email is required';
@@ -20,7 +33,7 @@ const EditUserModal = ({ closeModal, userToEdit }) => {
     setValidationResult(errors);
   }
 
-  const { firstNamError, lastNameError, emailError } = validationResult;
+  const { firstNameError, lastNameError, emailError } = validationResult;
 
   const dispatch = useDispatch();
 
@@ -39,7 +52,7 @@ const EditUserModal = ({ closeModal, userToEdit }) => {
       <h2>You are editing user with ID: {userToEdit.id}</h2>
       <div className="input-field first-name">
         <input value={firstName} onChange={e => setFirstName(e.target.value)} onBlur={validateInputs} />
-        {firstNamError && <p className='error-text'>{firstNamError}</p>}
+        {firstNameError && <p className='error-text'>{firstNameError}</p>}
       </div>
       <div className="input-field last-name">
         <input value={lastName} onChange={e => setLastName(e.target.value)} onBlur={validateInputs} />
@@ -52,7 +65,7 @@ const EditUserModal = ({ closeModal, userToEdit }) => {
       </div>
 
       <div className="actions">
-        <button onClick={confirmUserEdit} disabled={firstNamError || lastNameError || emailError}>Update</button>
+        <button onClick={confirmUserEdit} disabled={!!firstNameError || !!lastNameError || !!emailError}>Update</button>
         <button onClick={closeModal}>Cancel</button>
       </div>
     </Modal>

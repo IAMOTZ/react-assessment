@@ -1,6 +1,6 @@
 import React from 'react';
 
-const TableHeader = ({ headers }) => {
+const TableHeader = ({ headers }: { headers: string[] }) => {
   return (<div className='table-header'>
     {
       headers.map((header, i) => {
