@@ -22,7 +22,7 @@ const getUsers = (req, res, ctx) => {
 };
 
 const updateUser = (req, res, ctx) => {
-  const userId = req.params.userId;
+  const userId = +req.params.userId;
   const user = data.find(usr => usr.id === userId);
 
   if (!user) {
@@ -47,10 +47,11 @@ const updateUser = (req, res, ctx) => {
 }
 
 const deleteUser = (req, res, ctx) => {
-  const userId = req.params.userId;
+  const userId = +req.params.userId;
+
   const userIndex = data.findIndex(usr => usr.id === userId);
 
-  if (userIndex < 1) {
+  if (userIndex < 0) {
     return res(
       ctx.status(404),
       ctx.json({
