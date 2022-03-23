@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { TableColumn } from '../typings';
 
 const TableRow = ({ columns, row }: { columns: TableColumn[], row: any }) => {
@@ -12,6 +13,12 @@ const TableRow = ({ columns, row }: { columns: TableColumn[], row: any }) => {
   </div>
 }
 
+// @todo: Improve proptypes by declaring shapes
+TableRow.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
+  row:  PropTypes.object,
+}
+
 const TableRows = ({ columns, rows }: { columns: TableColumn[], rows: any[] }) => {
   return (<div className='table-rows'>
     {
@@ -19,6 +26,12 @@ const TableRows = ({ columns, rows }: { columns: TableColumn[], rows: any[] }) =
     }
   </div>
   )
+}
+
+// @todo: Improve proptypes by declaring shapes
+TableRows.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
+  rows:  PropTypes.arrayOf(PropTypes.object),
 }
 
 export default TableRows;

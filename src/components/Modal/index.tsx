@@ -1,4 +1,5 @@
 import React, { ReactChild } from 'react';
+import PropTypes from 'prop-types';
 import './styles.css';
 
 const Modal = ({ children }: { children: ReactChild | ReactChild[] }) => (
@@ -9,5 +10,8 @@ const Modal = ({ children }: { children: ReactChild | ReactChild[] }) => (
   </div>
 );
 
+Modal.propTypes = {
+  children: PropTypes.node,
+}
 
 export default Modal;

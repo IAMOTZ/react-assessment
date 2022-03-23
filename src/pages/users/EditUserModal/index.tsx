@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import Modal from '../../../components/Modal';
 import { editUser } from '../../../store/users/actions';
@@ -72,5 +73,9 @@ const EditUserModal = ({ closeModal, userToEdit }: EditUserModalProps) => {
   )
 };
 
+EditUserModal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  userToEdit: PropTypes.object.isRequired,
+}
 
 export default EditUserModal;

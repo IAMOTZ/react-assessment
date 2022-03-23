@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { useDispatch } from 'react-redux';
 import Modal from '../../../components/Modal';
 import { deleteUser } from '../../../store/users/actions';
@@ -26,5 +27,9 @@ const DeleteUserModal = ({ closeModal, userToDelete }: DeleteUserModalProps) => 
   )
 };
 
+DeleteUserModal.propTypes = {
+  closeModal: PropTypes.func.isRequired,
+  userToDelete: PropTypes.object.isRequired,
+}
 
 export default DeleteUserModal;

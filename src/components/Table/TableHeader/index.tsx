@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const TableHeader = ({ headers }: { headers: string[] }) => {
   return (<div className='table-header'>
@@ -9,6 +10,10 @@ const TableHeader = ({ headers }: { headers: string[] }) => {
     }
   </div>
   )
+}
+
+TableHeader.propTypes = {
+  headers: PropTypes.arrayOf(PropTypes.string),
 }
 
 export default TableHeader;

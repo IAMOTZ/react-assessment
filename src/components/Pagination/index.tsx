@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-
+import PropTypes from 'prop-types';
 interface PaginationProps {
   pageSize: number,
   totalDataCount: number,
@@ -25,6 +25,12 @@ const Pagination = ({ pageSize, totalDataCount, onPageChange }: PaginationProps)
       <button onClick={() => setPage(page + 1)} disabled={page === lastPage}>Next</button>
     </div>
   )
+}
+
+Pagination.propTypes = {
+  pageSize: PropTypes.number.isRequired,
+  totalDataCount: PropTypes.number.isRequired,
+  onPageChange: PropTypes.func.isRequired,
 }
 
 export default Pagination;

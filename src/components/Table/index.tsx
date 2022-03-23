@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import TableHeader from './TableHeader';
 import TableRows from './TableRows';
 import { TableColumn } from './typings';
@@ -18,6 +19,11 @@ const Table = ({ columns, rows }: TableProps) => {
       <TableRows columns={columns} rows={rows} />
     </div>
   )
+}
+
+Table.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.object),
+  rows:  PropTypes.arrayOf(PropTypes.object),
 }
 
 export default Table;
