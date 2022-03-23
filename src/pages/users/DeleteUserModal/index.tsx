@@ -20,9 +20,11 @@ const DeleteUserModal = ({ closeModal, userToDelete }: DeleteUserModalProps) => 
 
   return (
     <Modal>
-      <h2>Are you sure you want to delete this user?</h2>
-      <button onClick={confirmUserDelete}>Yes</button>
-      <button onClick={closeModal}>No</button>
+      <h2>Are you sure you want to delete user with ID {userToDelete.id}?</h2>
+      <div className="actions">
+        <button onClick={confirmUserDelete}>Yes</button>
+        <button onClick={closeModal}>No</button>
+      </div>
     </Modal>
   )
 };

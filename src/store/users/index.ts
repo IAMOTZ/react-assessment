@@ -66,8 +66,6 @@ export const usersSlice = createSlice({
       .addCase(editUser.rejected, (state, action) => {
         state.isEditingUser = false;
         state.editingUserSuccess = false;
-        // @todo: re-enable when action is configured
-        // state.editingUserError = action.payload;
       })
       .addCase(deleteUser.pending, (state) => {
         state.isDeletingUser = true;
@@ -82,14 +80,12 @@ export const usersSlice = createSlice({
       .addCase(deleteUser.rejected, (state, action) => {
         state.isDeletingUser = false;
         state.deletingUserSuccess = true;
-        // @todo: re-enable when action is configured
-        // state.deletingUserError = action.payload || '';
       });
   },
 });
 
 export default usersSlice.reducer;
 
-// @todo: Kep this as part of actions exports
+// @todo-imporvement: Keep this as part of actions exports
 export const { setPaginationInfo } = usersSlice.actions;
 

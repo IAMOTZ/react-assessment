@@ -51,18 +51,25 @@ const EditUserModal = ({ closeModal, userToEdit }: EditUserModalProps) => {
   return (
     <Modal>
       <h2>You are editing user with ID: {userToEdit.id}</h2>
-      <div className="input-field first-name">
-        <input value={firstName} onChange={e => setFirstName(e.target.value)} onBlur={validateInputs} />
-        {firstNameError && <p className='error-text'>{firstNameError}</p>}
-      </div>
-      <div className="input-field last-name">
-        <input value={lastName} onChange={e => setLastName(e.target.value)} onBlur={validateInputs} />
-        {lastNameError && <p className='error-text'>{lastNameError}</p>}
-      </div>
+      <div className="edit-user-form">
 
-      <div className="input-field email">
-        <input value={email} onChange={e => setEmail(e.target.value)} onBlur={validateInputs} />
-        {emailError && <p className='error-text'>{emailError}</p>}
+
+        <div className="input-field first-name">
+          <p className='title'>First Name:</p>
+          <input value={firstName} onChange={e => setFirstName(e.target.value)} onBlur={validateInputs} />
+          {firstNameError && <p className='error-text'>{firstNameError}</p>}
+        </div>
+        <div className="input-field last-name">
+          <p className='title'>Last Name:</p>
+          <input value={lastName} onChange={e => setLastName(e.target.value)} onBlur={validateInputs} />
+          {lastNameError && <p className='error-text'>{lastNameError}</p>}
+        </div>
+
+        <div className="input-field email">
+          <p className='title'>Email:</p>
+          <input value={email} onChange={e => setEmail(e.target.value)} onBlur={validateInputs} />
+          {emailError && <p className='error-text'>{emailError}</p>}
+        </div>
       </div>
 
       <div className="actions">

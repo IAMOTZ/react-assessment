@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const TableHeader = ({ headers }: { headers: string[] }) => {
-  return (<div className='table-header'>
+  return (<div className='row row-header'>
     {
       headers.map((header, i) => {
-        return (<span className='header-field' key={i}>{header}</span>)
+        return (<span className='column column-header' key={i}>{header}</span>)
       })
     }
   </div>

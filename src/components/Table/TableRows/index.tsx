@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { TableColumn } from '../typings';
 
 const TableRow = ({ columns, row }: { columns: TableColumn[], row: any }) => {
-  return <div className='table-row'>
+  return <div className='row'>
     {
       columns.map((column, i) => {
         const columnValue = (column.valueGetter && column.valueGetter(row)) || row[column.field];
-        return (<span className='column' key={i}>{columnValue}</span>)
+        return (<span className={`column ${column.field}`} key={i}>{columnValue}</span>)
       })
     }
   </div>

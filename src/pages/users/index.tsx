@@ -8,6 +8,8 @@ import DeleteUserModal from './DeleteUserModal';
 import Pagination from '../../components/Pagination';
 import { User } from '../../store/users/typings';
 import { RootState } from '../../store';
+import './styles.scss';
+import { DeleteIcon, EditIcon } from '../../icons';
 
 const Users = () => {
   const { users, paginationInfo } = useSelector((state: RootState) => ({
@@ -21,6 +23,19 @@ const Users = () => {
   const [userToEdit, setUserToEdit] = useState<User | null>(null);
   const [userToDelete, setUserToDelete] = useState<User | null>(null);
 
+  const dispatch = useDispatch();
+
+  const { limit, offset, total } = paginationInfo;
+
+  useEffect(() => {
+    dispatch(fetchUsers({ limit, offset }));
+  }, [limit, offset, dispatch])
+
+  const pageSize = 20;
+  const onPageChange = useCallback((page) => {
+    const newOffset = page * pageSize;
+    dispatch(setPaginationInfo({ limit: 20, offset: newOffset }))
+  }, [pageSize, dispatch])
 
   const startEditAction = (user: User) => {
     setEditModalOpen(true);
@@ -34,7 +49,7 @@ const Users = () => {
 
   const columns = [
     { field: 'id', headerName: 'ID' },
-    { field: 'first_name', headerName: 'First Nam ' },
+    { field: 'first_name', headerName: 'First Name ' },
     { field: 'last_name', headerName: 'Last Name' },
     { field: 'email', headerName: 'Email' },
     {
@@ -42,39 +57,24 @@ const Users = () => {
       headerName: 'Actions',
       valueGetter: (row: User) => (
         <>
-          <button onClick={() => startDeleteAction(row)}>Delete User</button>
-          <button onClick={() => startEditAction(row)}>Edit User</button>
+          <EditIcon className="user-edit-icon" onClick={() => startEditAction(row)} />
+          <DeleteIcon className="user-delete-icon" onClick={() => startDeleteAction(row)} />
         </>
       )
     },
   ];
 
-  const dispatch = useDispatch();
 
-  const pageSize = 20;
-
-  const { limit, offset, total } = paginationInfo;
-
-  const onPageChange = useCallback((page) => {
-    const newOffset = page * pageSize;
-    dispatch(setPaginationInfo({ limit: 20, offset: newOffset }))
-  }, [pageSize, dispatch])
-
-  useEffect(() => {
-    dispatch(fetchUsers({ limit, offset }));
-  }, [limit, offset, dispatch])
-
-
-  // @todo: Handle fetch user error case
-  // @todo: Add a spinner for loading case
+  // @todo: Handle fetchUser error state
+  // @todo: Handle isFetchingUser loading state
 
   return (
-    <>
+    <div className='page-users'>
       {editModalOpen && <EditUserModal closeModal={() => setEditModalOpen(false)} userToEdit={userToEdit as User} />}
       {deleteModalOpen && <DeleteUserModal closeModal={() => setDeleteModalOpen(false)} userToDelete={userToDelete as User} />}
       <Table columns={columns} rows={users} />
       <Pagination onPageChange={onPageChange} totalDataCount={total} pageSize={pageSize} />
-    </>
+    </div>
   )
 
 }

@@ -1,0 +1,27 @@
+.table {
+  // @todo-improvement: Make this responsive
+  width: 850px;
+
+  margin-bottom: 15px;
+
+  .column {
+    width: 20%;
+    border: 0.5px solid grey;
+    padding: 2px 2px;
+    word-wrap: break-word;
+  }
+
+  .row {
+    display: flex;
+    text-align: center;
+  }
+
+  .column.column-header {
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+
+  .column.email {
+    min-width: 25px;
+  }
+}

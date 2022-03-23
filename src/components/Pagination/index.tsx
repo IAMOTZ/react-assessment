@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
+import './styles.scss';
+
 interface PaginationProps {
   pageSize: number,
   totalDataCount: number,
@@ -20,9 +22,17 @@ const Pagination = ({ pageSize, totalDataCount, onPageChange }: PaginationProps)
 
   return (
     <div className="pagination">
-      <button onClick={() => setPage(page - 1)} disabled={page === 0}>Previous</button>
+      <button
+        className="prev-btn"
+        onClick={() => setPage(page - 1)}
+        disabled={page === 0}>Previous
+      </button>
       <span>{totalDataCount === 0 ? totalDataCount : start} to {end > totalDataCount ? totalDataCount : end} of {totalDataCount}</span>
-      <button onClick={() => setPage(page + 1)} disabled={page === lastPage}>Next</button>
+      <button
+        className="next-btn"
+        onClick={() => setPage(page + 1)}
+        disabled={page === lastPage}>Next
+      </button>
     </div>
   )
 }

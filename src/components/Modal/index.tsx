@@ -1,6 +1,6 @@
 import React, { ReactChild } from 'react';
 import PropTypes from 'prop-types';
-import './styles.css';
+import './styles.scss';
 
 const Modal = ({ children }: { children: ReactChild | ReactChild[] }) => (
   <div className="modal">
