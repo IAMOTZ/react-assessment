@@ -10,6 +10,7 @@ const getUsers = (req, res, ctx) => {
   return res(
     ctx.status(200),
     ctx.json({
+      message: 'Fetch users successful',
       users: paginatedData,
       paginationInfo: {
         limit,
